@@ -81,14 +81,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <EditText
             android:id="@+id/editTextTextPersonName4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number"
-            android:hint="@string/hint_NumeroTarjeta" />
+            android:hint="@string/hint_NumeroTarjeta"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/editTextTextPersonName5"
@@ -96,8 +97,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/hint_CCV_Tarjeta"/>
+            android:hint="@string/hint_CCV_Tarjeta"
+            android:inputType="number"
+            android:maxLength="3"
+            />
 
     </LinearLayout>
 
