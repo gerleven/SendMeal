@@ -5,6 +5,8 @@
     <string name="hint_repetirPassword">Repetir Contraseña</string>
     <string name="hint_email">Email</string>
     <string name="label_tipoTarjeta">Tipo de tarjeta</string>
+    <string name="label_debito">Debito</string>
+    <string name="label_credito">Crédito</string>
     <string name="hint_NumeroTarjeta">Numero de Tarjeta</string>
     <string name="hint_CCV_Tarjeta">CCV</string>
     <string name="label_fechaVto">Fecha de vencimiento</string>
