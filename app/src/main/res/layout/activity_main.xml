@@ -15,36 +15,39 @@
     -->
 
     <EditText
-        android:id="@+id/editTextTextNombreApellido"
+        android:id="@+id/ET_UserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="16"
         android:inputType="textPersonName"
         android:hint="@string/hint_user_name"
 
         android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/ET_Pass1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
         android:hint="@string/hint_password"
+        android:maxLength="16"
         android:importantForAutofill="no" />
 
 
     <EditText
-        android:id="@+id/editTextRepetirPassword"
+        android:id="@+id/ET_Pass2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="16"
         android:inputType="textPassword"
         android:hint="@string/hint_repetirPassword"
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/ET_Mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -53,26 +56,26 @@
         android:importantForAutofill="no" />
 
     <TextView
-        android:id="@+id/textViewTipoTarjeta"
+        android:id="@+id/TV_TipoTarjeta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/label_tipoTarjeta" />
 
     <RadioGroup
-        android:id="@+id/radioGroupTipoTarjeta"
+        android:id="@+id/RG_TipoTarj"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/radioButtonDebito"
+            android:id="@+id/RB_Debito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/label_debito" />
 
         <RadioButton
-            android:id="@+id/radioButtonCredito"
+            android:id="@+id/RB_Credito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -87,7 +90,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editTextNumeroTarjeta"
+            android:id="@+id/ET_NumTarjeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -95,10 +98,11 @@
             android:hint="@string/hint_NumeroTarjeta"
             android:inputType="number"
             android:importantForAutofill="no"
-            android:maxLength="3" />
+            android:maxLength="16" />
 
         <EditText
-            android:id="@+id/editTextCCV"
+            android:id="@+id/ET_CCVTarj"
+            android:enabled="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -111,7 +115,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textViewFechaVencimiento"
+        android:id="@+id/TV_FechaVto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/label_fechaVto" />
@@ -134,25 +138,25 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editTextCBU"
+        android:id="@+id/ET_CBU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:hint="@string/hint_CBU"
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/editTextAliasCBU"
+        android:id="@+id/ET_AliasCBU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:hint="@string/hint_alias_CBU"
         android:importantForAutofill="no" />
 
     <Switch
-        android:id="@+id/switchCargaInicial"
+        android:id="@+id/SW_CargaInicial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/switch_carga_inicial" />
@@ -160,24 +164,27 @@
 
 
     <TextView
-        android:id="@+id/textViewCreditoInicial"
+        android:id="@+id/TV_CreditoInicial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/txtCreditoInicial" />
 
     <SeekBar
-        android:id="@+id/seekBarCredito"
+        android:id="@+id/SB_CreditoInicial"
+        android:min="10"
+        android:max="1500"
+        android:progress="10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <CheckBox
-        android:id="@+id/checkBoxTerminosYCondiciones"
+        android:id="@+id/CB_AcetaTerminos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/checkBox_Terminos" />
 
     <Button
-        android:id="@+id/buttonRegistrar"
+        android:id="@+id/BTN_Registrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_Registrar" />
