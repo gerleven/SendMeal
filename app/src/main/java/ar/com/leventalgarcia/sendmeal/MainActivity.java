@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         };
         sbCreditoInicial.setOnSeekBarChangeListener(seekBarListener);
 
-        Spinner.OnClickListener spinerListener = new Spinner.OnClickListener(){
+        final Spinner.OnClickListener spinerListener = new Spinner.OnClickListener(){
 
             @Override
             public void onClick(View view) {
@@ -213,7 +213,13 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         numTarj.addTextChangedListener(textwatcherListener);
         ccv.addTextChangedListener(textwatcherListener);
 
-
+        //FALTA HACER:
+        //seekbar (mariano)
+        //switch (Ger)
+        //checkBox (cuelquiera)
+        //boton registrar: //validar paswords, etc (cuando esten los otros 3)
+        //models (cualqueira)
+        //persistir (cualqueira)
 
 
 
