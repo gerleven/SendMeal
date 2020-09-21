@@ -169,6 +169,7 @@
         android:layout_height="wrap_content"
         android:text="@string/txtCreditoInicial" />
 
+    <!-- new -->
     <SeekBar
         android:id="@+id/SB_CreditoInicial"
         android:min="10"

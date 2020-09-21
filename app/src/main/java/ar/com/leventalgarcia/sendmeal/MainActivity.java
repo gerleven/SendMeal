@@ -24,6 +24,8 @@ import static ar.com.leventalgarcia.sendmeal.R.id.ET_CCVTarj;
 import static ar.com.leventalgarcia.sendmeal.R.id.ET_Mail;
 import static ar.com.leventalgarcia.sendmeal.R.id.ET_NumTarjeta;
 import static ar.com.leventalgarcia.sendmeal.R.id.ET_UserName;
+import static ar.com.leventalgarcia.sendmeal.R.id.TV_CreditoInicial;
+import static ar.com.leventalgarcia.sendmeal.R.id.gone;
 import static ar.com.leventalgarcia.sendmeal.R.id.titleDividerNoCustom;
 
 public class MainActivity extends AppCompatActivity{ //implements View.OnClickListener
@@ -42,7 +44,11 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
     Spinner spinnerMesVencimiento,spinnerAnioVencimiento;
 
     Boolean terminosAceptados,esDebito,esCredito,conCargaInicial;
-    Float creditoInicial;
+    float creditoInicial;
+    String creditoInicialText = "Credito Inicial: ";
+    Boolean tipoCredito = false;
+    Boolean tipoDebito = false;
+
 
 
 
@@ -58,22 +64,6 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
 
 
         //Captura de widgets
-        /*
-        String userNameValue = ((EditText) findViewById(R.id.ET_UserName)).getText().toString();
-        String userPass1Value= ((EditText) findViewById(R.id.ET_Pass1)).getText().toString();
-        String userPass2Value= ((EditText) findViewById(R.id.ET_Pass2)).getText().toString();
-        String userMailValue= ((EditText) findViewById(R.id.ET_Mail)).getText().toString();
-        Integer numTarjetaValue = Integer.parseInt(((EditText) findViewById(R.id.ET_NumTarjeta)).getText().toString());
-        Integer ccvValue = Integer.parseInt(((EditText) findViewById(R.id.ET_CCVTarj)).getText().toString());
-        Integer cbuValue = Integer.parseInt(((EditText) findViewById(R.id.ET_CBU)).getText().toString());
-        String aliasCbuValue = ((EditText) findViewById(R.id.ET_AliasCBU)).getText().toString();
-        */
-
-
-
-
-
-
         userName = (EditText) findViewById(R.id.ET_UserName);
         userPass1 = (EditText) findViewById(R.id.ET_Pass1);
         userPass2 = (EditText) findViewById(R.id.ET_Pass2);
@@ -98,57 +88,127 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
 
         //Deshabilitar cosas
         //ccv ya esta en el XML
+        sbCreditoInicial.setVisibility(View.GONE); //new
+        tvCreditoInicial.setVisibility(View.GONE); //new
+        btnRregistrar.setEnabled(false); //new
         spinnerMesVencimiento.setEnabled(false);
         spinnerAnioVencimiento.setEnabled(false);
 
-        //Aca le estamos seteando al boton un escuchador de eventos, es decir, quien va a prestar atencion a cuando ese vvento suceda para hacer alguna accion.
-        //tipoTarjeta.getCheckedRadioButtonId();
-        //Oyente de radio group forma mas compacta:
-        rgTipoTarjeta.setOnCheckedChangeListener(
-                new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        //Purulaio
+        //Setup values:
+        creditoInicial=0; //el credito inicial comienza en 0 hasta que se setee un valor en la seekbar
+        tvCreditoInicial.setText(creditoInicialText+creditoInicial); //se actualiza el text view para que muestre el credito inicial actual
+        /*
+        String userNameValue = ((EditText) findViewById(R.id.ET_UserName)).getText().toString();
+        String userPass1Value= ((EditText) findViewById(R.id.ET_Pass1)).getText().toString();
+        String userPass2Value= ((EditText) findViewById(R.id.ET_Pass2)).getText().toString();
+        String userMailValue= ((EditText) findViewById(R.id.ET_Mail)).getText().toString();
+        Integer numTarjetaValue = Integer.parseInt(((EditText) findViewById(R.id.ET_NumTarjeta)).getText().toString());
+        Integer ccvValue = Integer.parseInt(((EditText) findViewById(R.id.ET_CCVTarj)).getText().toString());
+        Integer cbuValue = Integer.parseInt(((EditText) findViewById(R.id.ET_CBU)).getText().toString());
+        String aliasCbuValue = ((EditText) findViewById(R.id.ET_AliasCBU)).getText().toString();
+        */
 
-                    }
-                }
-        );
+
+
 
         //-------------- OYENTES: -------------------
-        //Radio Group:
+
+        //Listener del Radio Group:
         RadioGroup.OnCheckedChangeListener rgListener =
                 new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                        Toast.makeText(MainActivity.this, "rgListener:", Toast.LENGTH_SHORT).show();
-
+                        switch(rgTipoTarjeta.getCheckedRadioButtonId()) {
+                            case (R.id.RB_Credito):
+                                tipoCredito = true;
+                                tipoDebito = false;
+                                break;
+                            case (R.id.RB_Debito):
+                                tipoDebito = true;
+                                tipoCredito = false;
+                                break;
+                            default:
+                                Toast.makeText(MainActivity.this, "Error en el Listener del radio group...", Toast.LENGTH_SHORT).show();
+                        }
+                        Toast.makeText(MainActivity.this, "rgListener: tipo: "+(tipoDebito?"Debito":"Credito"), Toast.LENGTH_SHORT).show();
                     }
                 };
         rgTipoTarjeta.setOnCheckedChangeListener(rgListener);
 
-        //Views
-        View.OnClickListener viewsListener = new View.OnClickListener() {
+        //Listener de los Views: Botonoes, etc
+        View.OnClickListener viewsListener = new View.OnClickListener() { //new
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "viewsListener:", Toast.LENGTH_SHORT).show();
+                switch (view.getId()){
+                    case R.id.BTN_Registrar:
+                        if(validacionesLogIn()){
+                            Toast.makeText(MainActivity.this, "Registrando...", Toast.LENGTH_SHORT).show();
+                            //intent que lleve a la pantalla siguiente
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Debes completar correctamente todos los campos", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, "Ningun id encontrado en el switch{}...", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         };
         btnRregistrar.setOnClickListener(viewsListener);
 
-        //Oyente Compund Buttons:
+        //Listener de los Compund Buttons:
         CompoundButton.OnCheckedChangeListener compoundButtonListener = new CompoundButton.OnCheckedChangeListener(){
 
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Toast.makeText(MainActivity.this, "compoundButtonListener:", Toast.LENGTH_SHORT).show();
+                switch (compoundButton.getId()){ //new
+
+                    case (R.id.SW_CargaInicial): //Si toco el SwitchButton:
+                        if(b) {
+                            Toast.makeText(MainActivity.this, "Activando carga inicial", Toast.LENGTH_SHORT).show();
+                            sbCreditoInicial.setVisibility(View.VISIBLE);
+                            sbCreditoInicial.setEnabled(true);
+                            tvCreditoInicial.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Desactivando carga inicial", Toast.LENGTH_SHORT).show();
+                            sbCreditoInicial.setVisibility(View.GONE);
+                            tvCreditoInicial.setVisibility(View.GONE);
+                        }
+                        break;
+                    case (R.id.CB_AcetaTerminos):
+                        if(b){
+                            terminosAceptados=true;
+                            btnRregistrar.setEnabled(true);
+                        }
+                        else{
+                            terminosAceptados=false;
+                            btnRregistrar.setEnabled(false);
+                        }
+                        Toast.makeText(MainActivity.this, terminosAceptados?"Terminos aceptados!":"Terminos no aceptados!", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, "Ningun id encontrado en el switch{}...", Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
             }
         };
         cbAceptoTerm.setOnCheckedChangeListener(compoundButtonListener);
         swCargaInicial.setOnCheckedChangeListener(compoundButtonListener);
 
+        //Listener del SeekBar
         SeekBar.OnSeekBarChangeListener seekBarListener = new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                Toast.makeText(MainActivity.this, "onProgressChanged:", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "onProgressChanged. i: "+Integer.toString(i)+". b: "+Boolean.toString(b)+"Prgress: "+seekBar.getProgress(), Toast.LENGTH_SHORT).show();
+                creditoInicial=i;
+                tvCreditoInicial.setText(creditoInicialText+Float.toString(creditoInicial)+"("+seekBar.getProgress()+")"); //actualiza el text view que esta arriba de la seek bar para mostrar cuanto credito seteo
+                //seekBar.getProgress();
             }
 
             @Override
@@ -157,8 +217,10 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(MainActivity.this, "onStopTrackingTouch:", Toast.LENGTH_SHORT).show();
+            public void onStopTrackingTouch(SeekBar seekBar) { //new
+                //set monto inicial
+                Toast.makeText(MainActivity.this, "onStopTrackingTouch, Credito asignado: "+Float.toString(creditoInicial), Toast.LENGTH_SHORT).show();
+
             }
         };
         sbCreditoInicial.setOnSeekBarChangeListener(seekBarListener);
@@ -217,6 +279,7 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         //seekbar (mariano)
         //switch (Ger)
         //checkBox (cuelquiera)
+        //pasar los detos leidos a variables (si es credito o debito, si acepto los terminos, el monto inicial, etc) //new
         //boton registrar: //validar paswords, etc (cuando esten los otros 3)
         //models (cualqueira)
         //persistir (cualqueira)
@@ -228,5 +291,12 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
 
 
     }
+
+    private boolean validacionesLogIn() { //new
+        return true;
+    }
+
+
+
 
 }
