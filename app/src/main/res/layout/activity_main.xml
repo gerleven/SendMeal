@@ -119,29 +119,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/label_fechaVto" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinnerMesVencimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+                <EditText
+                    android:id="@+id/ET_fechaVtoMes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:hint="@string/hint_fechaVtoMes"
+                    android:importantForAutofill="no"/>
+                <EditText
+                    android:id="@+id/ET_fechaVtoAnio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:hint="@string/hint_fechaVtoAnio"
+                    android:importantForAutofill="no"/>
+        <!--
+                        <Spinner
+                            android:id="@+id/spinnerMesVencimiento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
 
-        <Spinner
-            android:id="@+id/spinnerAnioVencimiento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
+                        <Spinner
+                            android:id="@+id/spinnerAnioVencimiento"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+        -->
+            </LinearLayout>
+
+
+
 
     <EditText
         android:id="@+id/ET_CBU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="22"
         android:inputType="number"
         android:hint="@string/hint_CBU"
         android:importantForAutofill="no" />
@@ -151,6 +176,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:maxLength="20"
         android:inputType="text"
         android:hint="@string/hint_alias_CBU"
         android:importantForAutofill="no" />

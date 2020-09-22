@@ -16,6 +16,8 @@
     <string name="checkBox_Terminos">Acepto los terminos y condiciones</string>
     <string name="btn_Registrar">REGISTRAR</string>
     <string name="txtCreditoInicial">Credito inicial:</string>
+    <string name="hint_fechaVtoMes">Mes</string>
+    <string name="hint_fechaVtoAnio">Anio</string>
 
     <!--
     <string name=""></string>

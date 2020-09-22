@@ -18,6 +18,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import static ar.com.leventalgarcia.sendmeal.R.id.ET_AliasCBU;
 import static ar.com.leventalgarcia.sendmeal.R.id.ET_CBU;
 import static ar.com.leventalgarcia.sendmeal.R.id.ET_CCVTarj;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
 
 
     //Variables widgets:
-    EditText userName, userPass1, userPass2,userMail,numTarj,ccv,cbu,aliasCBU;
+    EditText userName, userPass1, userPass2,userMail,numTarj,ccv,cbu,aliasCBU,vtoMes,vtoAnio;
     TextView tvTipoTarjeta,tvFechaVto,tvCreditoInicial;
     RadioGroup rgTipoTarjeta;
     RadioButton rbDebito,rbCredito;
@@ -41,16 +43,26 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
     SeekBar sbCreditoInicial;
     CheckBox cbAceptoTerm;
     Button btnRregistrar;
-    Spinner spinnerMesVencimiento,spinnerAnioVencimiento;
+    //Spinner spinnerMesVencimiento,spinnerAnioVencimiento;
 
-    Boolean terminosAceptados,esDebito,esCredito,conCargaInicial;
+    //Variables datos:
+    String userNameValue;
+    String userPass1Value;
+    String userPass2Value;
+    String userMailValue;
+    String numTarjetaValue;
+    Integer ccvValue;
+    String cbuValue;
+    String aliasCbuValue;
     float creditoInicial;
     String creditoInicialText = "Credito Inicial: ";
+    Boolean terminosAceptados=false;
+    Boolean conCargaInicial=false;
     Boolean tipoCredito = false;
     Boolean tipoDebito = false;
-
-
-
+    Boolean hacerValidaciones=true;
+    Integer vtoMesValue;
+    Integer vtoAnioValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +94,10 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         btnRregistrar = (Button) findViewById(R.id.BTN_Registrar);
         ccv = (EditText) findViewById(R.id.ET_CCVTarj);
         numTarj = (EditText) findViewById(ET_NumTarjeta);
-        spinnerMesVencimiento = (Spinner) findViewById(R.id.spinnerMesVencimiento);
-        spinnerAnioVencimiento = (Spinner) findViewById(R.id.spinnerAnioVencimiento);
+        //spinnerMesVencimiento = (Spinner) findViewById(R.id.spinnerMesVencimiento);
+        //spinnerAnioVencimiento = (Spinner) findViewById(R.id.spinnerAnioVencimiento);
+        vtoMes= (EditText) findViewById(R.id.ET_fechaVtoMes);
+        vtoAnio= (EditText) findViewById(R.id.ET_fechaVtoAnio);
 
 
         //Deshabilitar cosas
@@ -91,24 +105,14 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         sbCreditoInicial.setVisibility(View.GONE); //new
         tvCreditoInicial.setVisibility(View.GONE); //new
         btnRregistrar.setEnabled(false); //new
-        spinnerMesVencimiento.setEnabled(false);
-        spinnerAnioVencimiento.setEnabled(false);
+        //spinnerMesVencimiento.setEnabled(false);
+        //spinnerAnioVencimiento.setEnabled(false);
+        vtoMes.setEnabled(false);
+        vtoAnio.setEnabled(false);
 
-        //Purulaio
         //Setup values:
         creditoInicial=0; //el credito inicial comienza en 0 hasta que se setee un valor en la seekbar
         tvCreditoInicial.setText(creditoInicialText+creditoInicial); //se actualiza el text view para que muestre el credito inicial actual
-        /*
-        String userNameValue = ((EditText) findViewById(R.id.ET_UserName)).getText().toString();
-        String userPass1Value= ((EditText) findViewById(R.id.ET_Pass1)).getText().toString();
-        String userPass2Value= ((EditText) findViewById(R.id.ET_Pass2)).getText().toString();
-        String userMailValue= ((EditText) findViewById(R.id.ET_Mail)).getText().toString();
-        Integer numTarjetaValue = Integer.parseInt(((EditText) findViewById(R.id.ET_NumTarjeta)).getText().toString());
-        Integer ccvValue = Integer.parseInt(((EditText) findViewById(R.id.ET_CCVTarj)).getText().toString());
-        Integer cbuValue = Integer.parseInt(((EditText) findViewById(R.id.ET_CBU)).getText().toString());
-        String aliasCbuValue = ((EditText) findViewById(R.id.ET_AliasCBU)).getText().toString();
-        */
-
 
 
 
@@ -144,11 +148,16 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
                 switch (view.getId()){
                     case R.id.BTN_Registrar:
                         if(validacionesLogIn()){
-                            Toast.makeText(MainActivity.this, "Registrando...", Toast.LENGTH_SHORT).show();
+                            if(!hacerValidaciones){
+                                Toast.makeText(MainActivity.this, "Registrando... (No se hicieron las validaciones...)", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                //Toast.makeText(MainActivity.this, "Registrando...", Toast.LENGTH_SHORT).show();
+                            }
                             //intent que lleve a la pantalla siguiente
                         }
                         else{
-                            Toast.makeText(MainActivity.this, "Debes completar correctamente todos los campos", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, "Debes completar correctamente todos los campos", Toast.LENGTH_SHORT).show();
                         }
                         break;
                     default:
@@ -169,12 +178,14 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
 
                     case (R.id.SW_CargaInicial): //Si toco el SwitchButton:
                         if(b) {
+                            conCargaInicial=true;
                             Toast.makeText(MainActivity.this, "Activando carga inicial", Toast.LENGTH_SHORT).show();
                             sbCreditoInicial.setVisibility(View.VISIBLE);
                             sbCreditoInicial.setEnabled(true);
                             tvCreditoInicial.setVisibility(View.VISIBLE);
                         }
                         else{
+                            conCargaInicial=false;
                             Toast.makeText(MainActivity.this, "Desactivando carga inicial", Toast.LENGTH_SHORT).show();
                             sbCreditoInicial.setVisibility(View.GONE);
                             tvCreditoInicial.setVisibility(View.GONE);
@@ -206,8 +217,13 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 Toast.makeText(MainActivity.this, "onProgressChanged. i: "+Integer.toString(i)+". b: "+Boolean.toString(b)+"Prgress: "+seekBar.getProgress(), Toast.LENGTH_SHORT).show();
-                creditoInicial=i;
+                if(i>0 && i<=1500) {
+                    creditoInicial = i;
                 tvCreditoInicial.setText(creditoInicialText+Float.toString(creditoInicial)+"("+seekBar.getProgress()+")"); //actualiza el text view que esta arriba de la seek bar para mostrar cuanto credito seteo
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Seleccione un Credito inicial entre 0 y 1500", Toast.LENGTH_SHORT).show();
+                }
                 //seekBar.getProgress();
             }
 
@@ -234,7 +250,7 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         };
 
 
-        //Listener de los textviews:
+        //Listener de los editText:
         TextWatcher textwatcherListener = new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -249,7 +265,6 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
             @Override
             public void afterTextChanged(Editable s) {
                 Toast.makeText(MainActivity.this, "afterTextChanged", Toast.LENGTH_SHORT).show();
-                //Cantidad de digitos en numero de tarjeta valido
 
                 if (s == numTarj.getEditableText()) {
                     if(s.length()==16) {
@@ -261,12 +276,16 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
                 }
                 if (s == ccv.getEditableText()) {
                     if(s.length()==3) {
-                        spinnerAnioVencimiento.setEnabled(true);
-                        spinnerMesVencimiento.setEnabled(true);
+                        vtoMes.setEnabled(true);
+                        vtoAnio.setEnabled(true);
+                       // spinnerAnioVencimiento.setEnabled(true);
+                        //spinnerMesVencimiento.setEnabled(true);
                     }
                     else {
-                        spinnerAnioVencimiento.setEnabled(false);
-                        spinnerMesVencimiento.setEnabled(false);
+                        vtoMes.setEnabled(false);
+                        vtoAnio.setEnabled(false);
+                        //spinnerAnioVencimiento.setEnabled(false);
+                        //spinnerMesVencimiento.setEnabled(false);
                     }
                 }
             }
@@ -293,10 +312,121 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
     }
 
     private boolean validacionesLogIn() { //new
-        return true;
+        if(hacerValidaciones) {
+            if (userName.getEditableText().toString().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Debe completar el nombre de usuario...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (userPass1.getEditableText().toString().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Debe completar la contraseña...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (userPass2.getEditableText().toString().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Debe repetir la contraseña...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (!userPass1.getEditableText().toString().equals(userPass2.getEditableText().toString())) {
+                Toast.makeText(MainActivity.this, "Las contraseñas deben ser iguales...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (userMail.getEditableText().toString().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Debe completar el mail...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (userMail.getEditableText().toString().indexOf('@') != 0) {
+                Toast.makeText(MainActivity.this, "Falta validar el @ y mas de 3 caracteres en el mail. Mail invalido...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if ((!tipoCredito && !tipoDebito) || (tipoCredito && tipoDebito)) {
+                Toast.makeText(MainActivity.this, "Seleccione el tipo de tarjeta: Credito o Debito", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (numTarj.getEditableText().toString().length() != 16) {
+                Toast.makeText(MainActivity.this, "El numero de tarjeta debe tener 16 digitos...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (ccv.getEditableText().toString().length() != 3) {
+                Toast.makeText(MainActivity.this, "El numero CCV debe tener 3 digitos...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (vtoMes.getEditableText().toString().length() != 2) {
+                Toast.makeText(MainActivity.this, "El Mes debe tener 2 digitos...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (vtoAnio.getEditableText().toString().length() != 2) {
+                Toast.makeText(MainActivity.this, "El Anio debe tener 2 digitos...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (cbu.getEditableText().toString().length() != 22) {
+                Toast.makeText(MainActivity.this, "El CBU debe tener 22 digitos...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (aliasCBU.getEditableText().toString().isEmpty()) {
+                Toast.makeText(MainActivity.this, "Debe completar el Alias del CBU...", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            if (conCargaInicial) {
+                if (creditoInicial == 0) {
+                    Toast.makeText(MainActivity.this, "Asigne un credito inicial deslizando la barra...", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                if (creditoInicial < 0 || creditoInicial > 1500) {
+                    Toast.makeText(MainActivity.this, "El credito inicial debe ser mayor a 0 y menor o igual a 1500", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+        else{
+            Toast.makeText(MainActivity.this, "Cuidado! las validaciones estan desactivadas!", Toast.LENGTH_LONG).show();
+        }
+
+
+        //Fin de las validaciones...
+
+        //Persistir
+        if(persistirDatos()) {
+            Toast.makeText(MainActivity.this, "Login correcto...", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else{
+            Toast.makeText(MainActivity.this, "Algo salio mal...", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        
+    }
+
+    private boolean persistirDatos() {
+
+        try {
+            //Credito inicial ya esta hecho en el oyente del seekbar
+            userNameValue = userName.getText().toString();
+            userPass1Value = userPass1.getText().toString();
+            userPass2Value = userPass2.getText().toString();
+            userMailValue = userMail.getText().toString();
+            numTarjetaValue = numTarj.getText().toString();
+            //numTarjetaValue = Integer.parseInt(numTarj.getText().toString()); //es muy largo para un integer!
+            ccvValue = Integer.parseInt(ccv.getText().toString());
+            vtoMesValue = Integer.parseInt(vtoMes.getText().toString());
+            vtoAnioValue = Integer.parseInt(vtoAnio.getText().toString());
+            cbuValue = cbu.getText().toString();
+            //cbuValue = Integer.parseInt(cbu.getText().toString()); //es muy largo para un integer!
+            aliasCbuValue = aliasCBU.getText().toString();
+            Toast.makeText(MainActivity.this, "Datos persistidos!", Toast.LENGTH_SHORT).show();
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Error :"+e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
 
 
-
 }
+
+/*//Falta:
+    validaciones String para el mail
+    validaciones
+    agregar un maxleng a cbu y aliasCbu
+*/
