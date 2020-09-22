@@ -333,8 +333,10 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
                 Toast.makeText(MainActivity.this, "Debe completar el mail...", Toast.LENGTH_SHORT).show();
                 return false;
             }
-            if (userMail.getEditableText().toString().indexOf('@') != 0) {
-                Toast.makeText(MainActivity.this, "Falta validar el @ y mas de 3 caracteres en el mail. Mail invalido...", Toast.LENGTH_SHORT).show();
+            if (!userMail.getEditableText().toString().matches("([a-zA-Z0-9]+)@([a-zA-Z0-9]{3}).com")){
+                //"([a-zA-Z0-9]*)@([a-zA-Z0-9]{3})")) {
+                //"^[_\\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\\.)+[a-zA-Z]{2,6}$"
+                Toast.makeText(MainActivity.this, "Mail invalido...", Toast.LENGTH_SHORT).show();
                 return false;
             }
             if ((!tipoCredito && !tipoDebito) || (tipoCredito && tipoDebito)) {
