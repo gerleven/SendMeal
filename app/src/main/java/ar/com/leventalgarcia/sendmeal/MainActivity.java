@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
     SeekBar sbCreditoInicial;
     CheckBox cbAceptoTerm;
     Button btnRregistrar;
-    //Spinner spinnerMesVencimiento,spinnerAnioVencimiento;
+    Spinner spinnerMesVencimiento,spinnerAnioVencimiento;
 
     //Variables datos:
     String userNameValue;
@@ -94,11 +95,18 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
         btnRregistrar = (Button) findViewById(R.id.BTN_Registrar);
         ccv = (EditText) findViewById(R.id.ET_CCVTarj);
         numTarj = (EditText) findViewById(ET_NumTarjeta);
-        //spinnerMesVencimiento = (Spinner) findViewById(R.id.spinnerMesVencimiento);
-        //spinnerAnioVencimiento = (Spinner) findViewById(R.id.spinnerAnioVencimiento);
+        spinnerMesVencimiento = (Spinner) findViewById(R.id.spinnerMes);
+        spinnerAnioVencimiento = (Spinner) findViewById(R.id.spinnerAnio);
         vtoMes= (EditText) findViewById(R.id.ET_fechaVtoMes);
         vtoAnio= (EditText) findViewById(R.id.ET_fechaVtoAnio);
+        final String[] meses = {"Enero","Febrero","Marzo"};
 
+        //Adapters
+        ArrayAdapter<String> mesesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,meses);
+        mesesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item); //este layout te los muestra uno arriba del otro sin interlineado, se ve medio feo
+        mesesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); //este layout te lo muestra mas lindo, se ve con interlineado entre medio
+
+        spinnerMesVencimiento.setAdapter(mesesAdapter);
 
         //Deshabilitar cosas
         //ccv ya esta en el XML
