@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity{ //implements View.OnClickLi
     String userPass1Value;
     String userPass2Value;
     String userMailValue;
-    String numTarjetaValue;
+    String numTarjetaValue; 
     Integer ccvValue;
     String cbuValue;
     String aliasCbuValue;
