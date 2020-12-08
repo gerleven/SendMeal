@@ -1,4 +1,5 @@
 <resources>
+    <!-- REGISTRAR ACTIVITY-->
     <string name="app_name">Send Meal</string>
     <string name="hint_user_name">Nombre y Apellido</string>
     <string name="hint_password">Contraseña</string>
@@ -18,6 +19,29 @@
     <string name="txtCreditoInicial">Credito inicial:</string>
     <string name="hint_fechaVtoMes">Mes</string>
     <string name="hint_fechaVtoAnio">Anio</string>
+    <string name="btnVolver">Volver</string>
+
+    <!-- HOME ACTIVITY-->
+    <string name="mensajeBienvenida">\nBienvenido!</string>
+    <string name="tvUsuarios">Gestion de Usuarios:</string>
+    <string name="tvPlatos">\nGestion de Platos:</string>
+
+    <string name="btnRegistrarme">Registrarme</string>
+    <string name="btnCargarUsuariosDePrueba">Cargar Usuarios de prueba</string>
+    <string name="btnListaUsuarios">Lista Usuarios</string>
+
+    <string name="btnCrearItem">Crear Item</string>
+    <string name="btnCargarPlatosDePrueba">Cargar Platos de prueba</string>
+    <string name="btnListaItems">Lista Items</string>
+
+
+    <!-- CREAR ITEM ACTIVITY-->
+    <string name="tituloActivity">Nuevo Plato</string>
+    <string name="hint_tituloPlato">Título</string>
+    <string name="hintDescripcion">Descripción</string>
+    <string name="hintPrecio">Precio</string>
+    <string name="hintCalorías">Calorías</string>
+    <string name="btnGuardar">Guardar</string>
 
     <!--
     <string name=""></string>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewBienvenido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textSize="30dp"
+        android:lines="3"
+        android:textAlignment="center"
+        android:text="@string/mensajeBienvenida" />
+
+                <TextView
+                    android:id="@+id/textViewSeccionUsuarios"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tvUsuarios" />
+
+    <Button
+        android:id="@+id/buttonRegistrarme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnRegistrarme" />
+    <Button
+        android:id="@+id/buttonCargarUsuariosDePrueba"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCargarUsuariosDePrueba" />
+    <Button
+        android:id="@+id/buttonListaUsuarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnListaUsuarios" />
+
+                    <TextView
+                        android:id="@+id/textViewSeccionPlatos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lines="2"
+                        android:text="@string/tvPlatos" />
+
+    <Button
+        android:id="@+id/buttonCrearItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCrearItem" />
+    <Button
+        android:id="@+id/buttonCargarPlatosDePrueba"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCargarPlatosDePrueba" />
+    <Button
+        android:id="@+id/buttonListaItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnListaItems" />
+
+    <Button
+        android:id="@+id/Test_Datenow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test" />
+
+</LinearLayout>

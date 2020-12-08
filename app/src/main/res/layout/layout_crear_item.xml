@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewTituloActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tituloActivity" />
+
+    <EditText
+        android:id="@+id/editTextTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/hint_tituloPlato"
+        android:maxLength="30"
+         />
+
+    <EditText
+        android:id="@+id/editTextDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="@string/hintDescripcion"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLength="300"
+        android:maxLines="3"
+        android:minLines="3"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLength="6"
+            android:hint="@string/hintPrecio" />
+
+        <EditText
+            android:id="@+id/editTextCalorias"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:hint="@string/hintCalorías"
+            android:maxLength="6"
+            />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnGuardar" />
+    <Button
+        android:id="@+id/BTN_Volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnVolver" />
+</LinearLayout>

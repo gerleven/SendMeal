@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegistrarActivity">
+
+    <!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+    -->
+
+    <EditText
+        android:id="@+id/ET_UserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLength="16"
+        android:inputType="textPersonName"
+        android:hint="@string/hint_user_name"
+
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/ET_Pass1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/hint_password"
+        android:maxLength="16"
+        android:importantForAutofill="no" />
+
+
+    <EditText
+        android:id="@+id/ET_Pass2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLength="16"
+        android:inputType="textPassword"
+        android:hint="@string/hint_repetirPassword"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/ET_Mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="@string/hint_email"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/TV_TipoTarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_tipoTarjeta" />
+
+    <RadioGroup
+        android:id="@+id/RG_TipoTarj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/RB_Debito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_debito" />
+
+        <RadioButton
+            android:id="@+id/RB_Credito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/label_credito" />
+
+    </RadioGroup>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/ET_NumTarjeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hint_NumeroTarjeta"
+            android:inputType="number"
+            android:importantForAutofill="no"
+            android:maxLength="16" />
+
+        <EditText
+            android:id="@+id/ET_CCVTarj"
+            android:enabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hint_CCV_Tarjeta"
+            android:inputType="number"
+            android:maxLength="3"
+            android:importantForAutofill="no" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TV_FechaVto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_fechaVto" />
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Spinner
+            android:id="@+id/spinnerMes"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/spinnerAnio"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ET_CBU"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLength="22"
+        android:inputType="number"
+        android:hint="@string/hint_CBU"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/ET_AliasCBU"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLength="20"
+        android:inputType="text"
+        android:hint="@string/hint_alias_CBU"
+        android:importantForAutofill="no" />
+
+    <Switch
+        android:id="@+id/SW_CargaInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_carga_inicial" />
+
+
+
+    <TextView
+        android:id="@+id/TV_CreditoInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txtCreditoInicial" />
+
+    <!-- new -->
+    <SeekBar
+        android:id="@+id/SB_CreditoInicial"
+        android:min="10"
+        android:max="1500"
+        android:progress="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
+        android:id="@+id/CB_AcetaTerminos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBox_Terminos" />
+
+    <Button
+        android:id="@+id/BTN_Registrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_Registrar" />
+
+    <Button
+        android:id="@+id/BTN_Volver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnVolver" />
+
+
+</LinearLayout>
